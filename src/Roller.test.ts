@@ -1,50 +1,43 @@
-export class Roller {
-  private _faces: number;
-  private _distribution: Map<number, number>;
-  private _lastRoll: number;
+import { Roller } from './Roller';
 
-  constructor(faces: number = 6) {
-    if (faces < 1) {
-      throw new Error("Invalid number of faces. Must be greater than 0.");
-    }
-    this._faces = faces;
-    this._distribution = new Map();
-    for (let i = 1; i <= faces; i++) {
-      this._distribution.set(i, 0);
-    }
-    this._lastRoll = 0;
-  }
+describe('Roller', () => {
+  test('should roll a number between 1 and 6', () => {
+    const roller = new Roller();
+    const result = roller.roll(3);
+    expect(result).toBeGreaterThanOrEqual(1);
+    expect(result).toBeLessThanOrEqual(6);
+  });
 
-  public roll(value: number): number {
-    if (value < 1 || value > this._faces) {
-      return 0;
-    }
-    this._lastRoll = value;
-    this._distribution.set(value, this._distribution.get(value)! + 1);
-    return value;
-  }
+  test('should return the last roll', () => {
+    const roller = new Roller();
+    roller.roll(2);
+    roller.roll(5);
+    const result = roller.last();
+    expect(result).toBe(5);
+  });
 
-  public last(): number {
-    return this._lastRoll;
-  }
+  test('should return the distribution of rolls', () => {
+    const roller = new Roller();
+    roller.roll(2);
+    roller.roll(5);
+    roller.roll(2);
+    const result = roller.distribution();
+    expect(result.get(2)).toBe(2);
+    expect(result.get(5)).toBe(1);
+  });
 
-  public distribution(): Map<number, number> {
-    return new Map(this._distribution);
-  }
+  test('should throw an error if the number of faces is less than 1', () => {
+    expect(() => new Roller(0)).toThrowError('Invalid number of faces. Must be greater than 0.');
+  });
 
-  public get faces(): number {
-    return this._faces;
-  }
-
-  public set faces(value: number) {
-    if (value < 1) {
-      throw new Error("Invalid number of faces. Must be greater than 0.");
-    }
-    this._faces = value;
-    this._distribution = new Map();
-    for (let i = 1; i <= value; i++) {
-      this._distribution.set(i, 0);
-    }
-    this._lastRoll = 0;
-  }
-}
+  test('should set the number of faces and reset the distribution and last roll', () => {
+    const roller = new Roller();
+    roller.roll(2);
+    roller.roll(5);
+    roller.faces = 8;
+    const result = roller.faces;
+    expect(result).toBe(8);
+    expect(roller.distribution().size).toBe(8);
+    expect(roller.last()).toBe(0);
+  });
+});
