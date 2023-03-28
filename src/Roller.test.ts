@@ -34,8 +34,8 @@ describe('Roller', () => {
     const roller = new Roller(6);
     roller.roll(2);
     roller.roll(5);
-    roller.faces = 8;
-    const result = roller.faces;
+    roller._faces = 8;
+    const result = roller._faces;
     expect(result).toBe(8);
     expect(roller.distribution().size).toBe(8);
     expect(roller.last()).toBe(0);
