@@ -27,9 +27,7 @@ describe('Roller', () => {
   });
 
 test('should throw an error if the number of faces is less than 1', () => {
-  
-  const roller = new Roller(0);
-  expect(() => roller._faces < 1).toThrowError('Invalid number of faces. Must be greater than 0.');
+  expect(() => new Roller(0)).toThrowError('Invalid number of faces. Must be greater than 0.');
 });
 
 
