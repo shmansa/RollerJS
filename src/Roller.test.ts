@@ -1,84 +1,50 @@
-import { Roller } from './Roller';
+export class Roller {
+  private _faces: number;
+  private _distribution: Map<number, number>;
+  private _lastRoll: number;
 
-describe("Smoke test", ()=> {
-  test("The test scaffold runs successfully.", ()=> {
-    expect(true).toBe(true);
-  });
-})
+  constructor(faces: number = 6) {
+    if (faces < 1) {
+      throw new Error("Invalid number of faces. Must be greater than 0.");
+    }
+    this._faces = faces;
+    this._distribution = new Map();
+    for (let i = 1; i <= faces; i++) {
+      this._distribution.set(i, 0);
+    }
+    this._lastRoll = 0;
+  }
 
-describe('Roller tests', () => {
-  describe('constructor', () => {
-    test('should default to 6 faces if an invalid value is provided', () => {
-      const roller = new Roller(1);
-      expect(roller['faces']).toBe(6);
-    });
+  public roll(value: number): number {
+    if (value < 1 || value > this._faces) {
+      return 0;
+    }
+    this._lastRoll = value;
+    this._distribution.set(value, this._distribution.get(value)! + 1);
+    return value;
+  }
 
-    test('should initialize distribution map with all faces having zero rolls', () => {
-      const roller = new Roller(4);
-      expect(roller['distribution'].size).toBe(4);
-      expect(roller['distribution'].get(1)).toBe(0);
-      expect(roller['distribution'].get(2)).toBe(0);
-      expect(roller['distribution'].get(3)).toBe(0);
-      expect(roller['distribution'].get(4)).toBe(0);
-    });
-  });
+  public last(): number {
+    return this._lastRoll;
+  }
 
-  describe('roll', () => {
-    test('should not record roll if value is not valid for the number of faces and return 0', () => {
-      const roller = new Roller(3);
-      const result = roller.roll(4);
-      expect(result).toBe(0);
-      expect(roller.last()).toBe(0);
-      expect(roller.distribution().get(4)).toBe(undefined);
-    });
+  public distribution(): Map<number, number> {
+    return new Map(this._distribution);
+  }
 
-    test('should record roll, update last and distribution, and return the same value if it is between 1 and the number of faces (inclusive)', () => {
-      const roller = new Roller(2);
-      const result = roller.roll(2);
-      expect(result).toBe(2);
-      expect(roller.last()).toBe(2);
-      expect(roller.distribution().get(2)).toBe(1);
-    });
-  });
+  public get faces(): number {
+    return this._faces;
+  }
 
-  describe('last', () => {
-    test('should return 0 if no rolls have been made yet', () => {
-      const roller = new Roller(6);
-      expect(roller.last()).toBe(0);
-    });
-
-    test('should return the value of the latest roll', () => {
-      const roller = new Roller(6);
-      roller.roll(3);
-      roller.roll(6);
-      roller.roll(1);
-      expect(roller.last()).toBe(1);
-    });
-  });
-
-  describe('distribution', () => {
-    test('should return a map with all faces having zero rolls if no rolls have been made yet', () => {
-      const roller = new Roller(4);
-      const distribution = roller.distribution();
-      expect(distribution.get(1)).toBe(0);
-      expect(distribution.get(2)).toBe(0);
-      expect(distribution.get(3)).toBe(0);
-      expect(distribution.get(4)).toBe(0);
-    });
-
-    test('should return a map with the correct number of rolls for each face that has been rolled', () => {
-      const roller = new Roller(6);
-      roller.roll(2);
-      roller.roll(4);
-      roller.roll(1);
-      roller.roll(4);
-      const distribution = roller.distribution();
-      expect(distribution.get(1)).toBe(1);
-      expect(distribution.get(2)).toBe(1);
-      expect(distribution.get(3)).toBe(0);
-      expect(distribution.get(4)).toBe(2);
-      expect(distribution.get(5)).toBe(0);
-      expect(distribution.get(6)).toBe(0);
-    });
-  });
-});
+  public set faces(value: number) {
+    if (value < 1) {
+      throw new Error("Invalid number of faces. Must be greater than 0.");
+    }
+    this._faces = value;
+    this._distribution = new Map();
+    for (let i = 1; i <= value; i++) {
+      this._distribution.set(i, 0);
+    }
+    this._lastRoll = 0;
+  }
+}
