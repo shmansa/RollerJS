@@ -1,6 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1680025358780" clover="3.2.0">
-  <project timestamp="1680025358781" name="All files">
-    <metrics statements="0" coveredstatements="0" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0" elements="0" coveredelements="0" complexity="0" loc="0" ncloc="0" packages="0" files="0" classes="0"/>
+<coverage generated="1680027335108" clover="3.2.0">
+  <project timestamp="1680027335109" name="All files">
+    <metrics statements="13" coveredstatements="12" conditionals="5" coveredconditionals="4" methods="4" coveredmethods="4" elements="22" coveredelements="20" complexity="0" loc="13" ncloc="13" packages="1" files="1" classes="1"/>
+    <file name="Roller.ts" path="/sandbox/src/Roller.ts">
+      <metrics statements="13" coveredstatements="12" conditionals="5" coveredconditionals="4" methods="4" coveredmethods="4"/>
+      <line num="1" count="1" type="stmt"/>
+      <line num="10" count="5" type="cond" truecount="2" falsecount="0"/>
+      <line num="11" count="5" type="stmt"/>
+      <line num="12" count="5" type="stmt"/>
+      <line num="13" count="32" type="stmt"/>
+      <line num="15" count="5" type="stmt"/>
+      <line num="29" count="8" type="cond" truecount="2" falsecount="1"/>
+      <line num="30" count="0" type="stmt"/>
+      <line num="32" count="8" type="stmt"/>
+      <line num="33" count="8" type="stmt"/>
+      <line num="34" count="8" type="stmt"/>
+      <line num="40" count="2" type="stmt"/>
+      <line num="49" count="2" type="stmt"/>
+    </file>
   </project>
 </coverage>
