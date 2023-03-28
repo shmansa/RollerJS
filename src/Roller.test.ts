@@ -2,14 +2,14 @@ import { Roller } from './Roller';
 
 describe('Roller', () => {
   test('should roll a number between 1 and 6', () => {
-    const roller = new Roller();
+    const roller = new Roller(6);
     const result = roller.roll(3);
     expect(result).toBeGreaterThanOrEqual(1);
     expect(result).toBeLessThanOrEqual(6);
   });
 
   test('should return the last roll', () => {
-    const roller = new Roller();
+    const roller = new Roller(6);
     roller.roll(2);
     roller.roll(5);
     const result = roller.last();
@@ -17,7 +17,7 @@ describe('Roller', () => {
   });
 
   test('should return the distribution of rolls', () => {
-    const roller = new Roller();
+    const roller = new Roller(6);
     roller.roll(2);
     roller.roll(5);
     roller.roll(2);
@@ -31,7 +31,7 @@ describe('Roller', () => {
   });
 
   test('should set the number of faces and reset the distribution and last roll', () => {
-    const roller = new Roller();
+    const roller = new Roller(6);
     roller.roll(2);
     roller.roll(5);
     roller.faces = 8;
