@@ -7,6 +7,8 @@ export class Roller {
     // so any invalid values should default to 6 to represent the common 
     // six-sided die.
     constructor(faces: number) {
+	    if(faces < 1)
+			throw('Invalid number of faces. Must be greater than 0.');
         this._faces = faces >= 2 ? faces : 6;
         this._distribution = new Map<number, number>();
         for (let i = 1; i <= this._faces; i++) {
